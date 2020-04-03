@@ -22,6 +22,7 @@ public class EmpRegisterController {
 	
 	@RequestMapping(value="/emp", method = RequestMethod.POST)
 	public String  register(EmpDto dto) throws Exception{
+		System.out.println(dto);
 		String hashedPw = BCrypt.hashpw(dto.getPasswd(), BCrypt.gensalt());
 		dto.setPasswd(hashedPw);
 		service.register(dto);

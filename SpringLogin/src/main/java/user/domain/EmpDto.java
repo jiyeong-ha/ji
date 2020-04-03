@@ -8,9 +8,9 @@ public class EmpDto {
 	String passwd; //pw
 	String birth; //생년월일
 	String email; //이메일
-	int phonenum; //전화번호
+	String phonenum; //전화번호
 	String hiredate; //입사일자
-	int approval; //0.관리자 1.사용자
+	String approval; //0.관리자 1.사용자
 	String level; //직급
 	public int getEmpno() {
 		return empno;
@@ -54,10 +54,10 @@ public class EmpDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getPhonenum() {
+	public String getPhonenum() {
 		return phonenum;
 	}
-	public void setPhonenum(int phonenum) {
+	public void setPhonenum(String phonenum) {
 		this.phonenum = phonenum;
 	}
 	public String getHiredate() {
@@ -66,10 +66,10 @@ public class EmpDto {
 	public void setHiredate(String hiredate) {
 		this.hiredate = hiredate;
 	}
-	public int getApproval() {
+	public String getApproval() {
 		return approval;
 	}
-	public void setApproval(int approval) {
+	public void setApproval(String approval) {
 		this.approval = approval;
 	}
 	public String getLevel() {
@@ -80,5 +80,4 @@ public class EmpDto {
 	}
 	
 	
-
 }
