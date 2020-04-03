@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mAPPER 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="emp">
+	<insert id="emp" parameterType="user.domain.EmpDto">
+		insert into employee(name, id, passwd, birth, email, phonenum, approval, level) values(#{name},#{id},#{passwd},#{birth},#{email},#{phonenum},#{approval},#{level})
+	</insert>
+</mapper>

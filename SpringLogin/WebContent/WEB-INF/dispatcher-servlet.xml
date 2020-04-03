@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<context:property-placeholder local-override="true" location="classpath:db.properties"/>
+	<bean class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" id="dataSource">
+		<property name="driverClassName" value="${driver}"/>
+		<property name="url" value="${url}"/>
+		<property name="username" value="${username}"/>
+		<property name="password" value="${password}"/>
+	</bean>
+	
+	<!-- <bean id="viewResolver1" class="org.springframework.web.servlet.view.BeanNameViewResolver" /> -->
+
+	<bean id="viewResolver2" class="org.springframework.web.servlet.view.InternalResourceViewResolver"><!-- hello()의 리턴값에 prefix와 suffix를 붙이고 디스페쳐에 리턴함 -->
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:mappers/user/*.xml" />
+		<property name="configLocation" value="classpath:config.xml" />
+	</bean>
+
+	<context:annotation-config />
+	<context:component-scan base-package="user.domain,user.persistence,user.service,user.controller"/>
+	
+	<bean id="userdao" class="user.persistence.UserDAOImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="empdao" class="user.persistence.EmpDaoImpl"
+		p:sqlSessionFactory-ref="sqlSessionFactory" />
+	
+	<bean id="loginInterceptor" class="commons.interceptor.LoginInterceptor"/>
+		
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/loginPost"/>
+			<ref bean="loginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	
+
+</beans>
