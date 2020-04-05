@@ -9,7 +9,8 @@
 <body>
 <a href="jsp/register">회원가입</a><br>
 <a href="jsp/user/login">로그인</a><br>
-<a href="jsp/emp">회원가입test</a>
+<a href="jsp/emp">회원가입test</a><br>
+<a href="jsp/board">자유게시판</a>
 
 </body>
 </html>

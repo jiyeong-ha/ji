@@ -29,13 +29,16 @@
 	</bean>
 
 	<context:annotation-config />
-	<context:component-scan base-package="user.domain,user.persistence,user.service,user.controller"/>
+	<context:component-scan base-package="user.domain,user.persistence,user.service,user.controller,board.persistence,board.domain,board.service,board.controller"/>
 	
 	<bean id="userdao" class="user.persistence.UserDAOImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
 	<bean id="empdao" class="user.persistence.EmpDaoImpl"
+		p:sqlSessionFactory-ref="sqlSessionFactory" />
+	
+	<bean id="freeboardao" class="board.persistence.freeboardDaoImpl"
 		p:sqlSessionFactory-ref="sqlSessionFactory" />
 	
 	<bean id="loginInterceptor" class="commons.interceptor.LoginInterceptor"/>
